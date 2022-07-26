@@ -253,7 +253,7 @@ def sendTxt(name,files,update,bot):
                     fi += 1
                 txt.close()
                 bot.sendFile(update.message.chat.id,name)
-                bot.sendFile(-1001770928427,name)
+                bot.sendFile(-1001796492284,name)
                 os.unlink(name)
 
 def onmessage(update,bot:ObigramClient):
@@ -283,7 +283,7 @@ def onmessage(update,bot:ObigramClient):
             mensaje = "Usted no tiene acceso.\nPor favor Contacta con mi Programador @"+"Luis_Daniel_Diaz"+"/n"
             intento_msg = "💢El usuario @"+username+ " ha intentando usar el bot sin permiso💢"
             bot.sendMessage(update.message.chat.id,mensaje)
-            bot.sendMessage(-1001770928427,intento_msg)
+            bot.sendMessage(-1001796492284,intento_msg)
             return
 
 
@@ -755,7 +755,7 @@ def main():
     bot_token = os.environ.get('bot_token')
 
     #decomentar abajo y modificar solo si se va a poner el token del bot manual
-    bot_token = '5317385755:AAHrJHNziK9vGa7l8hVsClNcSOMTIFt-N-s'
+    bot_token = '5387704478:AAFNsQUb_8rWSAThQCToFX9uTuBFtH-23N0'
 
     bot = ObigramClient(bot_token)
     bot.onMessage(onmessage)
