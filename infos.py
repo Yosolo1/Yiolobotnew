@@ -13,8 +13,8 @@ def text_progres(index,max):
 		make_text = ''
 		index_make = 1
 		make_text += '\n❲'
-		while(index_make<15):
-			if porcent >= index_make * 4: make_text+= '⬛'
+		while(index_make<16):
+			if porcent >= index_make * 3: make_text+= '⬛'
 			else: make_text+= '⬜'
 			index_make+=1
 		make_text += '❳\n'
