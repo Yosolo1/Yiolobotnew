@@ -214,7 +214,7 @@ def processFile(update,bot,message,file,obten_name,thread=None,jdb=None):
     else:
         bot.editMessageText(message,'⚠️𝙴𝚛𝚛𝚘𝚛 𝚎𝚗 𝚕𝚊 𝚗𝚞𝚋𝚎⚠️')
 
-def ddl(update,bot,message,url,obten_name,file_name='',thread=None,jdb=None):
+def ddl(update,bot,message,url,file_name='',thread=None,jdb=None):
     downloader = Downloader()
     file = downloader.download_url(url,progressfunc=downloadFile,args=(bot,message,thread))
     if not downloader.stoping:
