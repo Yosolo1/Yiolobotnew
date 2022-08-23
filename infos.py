@@ -13,8 +13,8 @@ def text_progres(index,max):
 		make_text = ''
 		index_make = 1
 		make_text += '\n❲'
-		while(index_make<10):
-			if porcent >= index_make * 5: make_text+= '⬛'
+		while(index_make<15):
+			if porcent >= index_make * 4: make_text+= '⬛'
 			else: make_text+= '⬜'
 			index_make+=1
 		make_text += '❳\n'
@@ -75,9 +75,8 @@ def createUploading(filename,totalBits,currentBits,speed,time,originalname=''):
 def createCompresing(filename,filesize,splitsize):
     msg = '╭──⊸🗜️𝙲𝙾𝙼𝙿𝚁𝙸𝙼𝙸𝙴𝙽𝙳𝙾🗜️... \n│\n'
     msg+= '├➢Nombre: ' + str(filename)+'\n'
-    msg+= '├➢Tamaño Total: ' + str(sizeof_fmt(filesize))+'\n'
+    msg+= '├➢Tamaño Total: ' + str(round(int(filesize/splitsize)+1,1))+'\n'
     msg+= '╰➢Tamaño de Partes: ' + str(sizeof_fmt(splitsize))+'\n'
-    msg+= 'Cantidad Partes: ' + str(round(int(filesize/splitsize)+1,1))+'\n\n'
 
     return msg
 def createFinishUploading(filename,filesize,split_size,current,count,findex):
@@ -146,6 +145,6 @@ def createStat(username,userdata,isadmin):
     msg+= '├➢Proxy: ' + proxy + '\n'
     msg+= '├➢Encriptar: ' + tokenize + '\n'
     msg+= '│' + '\n'
-    msg+= '╰──ⓘSuperDownload 1.5🌟─♾\n\n'
+    msg+= '╰──ⓘSuperDownload 1.5🌟─〄\n\n'
     return msg
     
