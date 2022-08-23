@@ -142,35 +142,23 @@ def processUploadFiles(filename,filesize,files,update,bot,message,thread=None,jd
         return None
 
 
-def processFile(update,bot,message,file,obten_name,thread=None,jdb=None):
+def processFile(update,bot,message,file,thread=None,jdb=None):
     file_size = get_file_size(file)
-    ext = file.split('.')[-1]
-    if '7z.' in file:
-        ext1 = file.split('.')[-2]
-        ext2 = file.split('.')[-1]
-        name = obten_name + '.'+ext1+'.'+ext2
-        
-    else:
-        name = obten_name + '.'+ext
-        
-    os.rename(file,name)
-    print(name)
     getUser = jdb.get_user(update.message.sender.username)
     max_file_size = 1024 * 1024 * getUser['zips']
     file_upload_count = 0
     client = None
     findex = 0
     if file_size > max_file_size:
-        compresingInfo = infos.createCompresing(name,file_size,max_file_size)
+        compresingInfo = infos.createCompresing(file,file_size,max_file_size)
         bot.editMessageText(message,compresingInfo)
-        #zipname = str(name).split('.')[0] + createID()
-        zipname = str(name).split('.')[0]
+        zipname = str(file).split('.')[0] + createID()
         mult_file = zipfile.MultiFile(zipname,max_file_size)
         zip = zipfile.ZipFile(mult_file,  mode='w', compression=zipfile.ZIP_DEFLATED)
-        zip.write(name)
+        zip.write(file)
         zip.close()
         mult_file.close()
-        client = processUploadFiles(name,file_size,mult_file.files,update,bot,message,jdb=jdb)
+        client = processUploadFiles(file,file_size,mult_file.files,update,bot,message,jdb=jdb)
         try:
             os.unlink(name)
         except:pass
