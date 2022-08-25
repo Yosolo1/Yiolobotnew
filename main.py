@@ -152,21 +152,21 @@ def processFile(update,bot,message,file,thread=None,jdb=None):
         compresingInfo = infos.createCompresing(name,file_size,max_file_size)
         bot.editMessageText(message,compresingInfo)
         #zipname = str(name).split('.')[0] + createID()
-        zipname = str(name).split('.')[0]
+        zipname = str(file).split('.')[0]
         mult_file = zipfile.MultiFile(zipname,max_file_size)
         zip = zipfile.ZipFile(mult_file,  mode='w', compression=zipfile.ZIP_DEFLATED)
-        zip.write(name)
+        zip.write(file)
         zip.close()
         mult_file.close()
-        client = processUploadFiles(name,file_size,mult_file.files,update,bot,message,jdb=jdb)
+        client = processUploadFiles(file,file_size,multi_file.files,update,bot,message,jdb=jdb)
         try:
             os.unlink(name)
         except:pass
         file_upload_count = len(zipfile.files)
     else:
-        client = processUploadFiles(name,file_size,[name],update,bot,message,jdb=jdb)
+        client = processUploadFiles(file,file_size,[file],update,bot,message,jdb=jdb)
         file_upload_count = 1
-    bot.editMessageText(message,'Preparando Archivo ...')
+    bot.editMessageText(message,'📦𝙿𝚛𝚎𝚙𝚊𝚛𝚊𝚗𝚍𝚘 𝚊𝚛𝚌𝚑𝚒𝚟𝚘📄...')
     evidname = ''
     files = []
     if client:
@@ -191,13 +191,13 @@ def processFile(update,bot,message,file,thread=None,jdb=None):
             for data in client:
                 files.append({'name':data['name'],'directurl':data['url']})
         bot.deleteMessage(message.chat.id,message.message_id)
-        #finishInfo = infos.createFinishUploading(name,file_size,max_file_size,file_upload_count,file_upload_count,findex)
-        finishInfo = infos.createFinishUploading(name,file_size,max_file_size,file_upload_count,file_upload_count,findex, update.message.sender.username)
-        filesInfo = infos.createFileMsg(name,files)
+        #finishInfo = infos.createFinishUploading(file,file_size,max_file_size,file_upload_count,file_upload_count,findex)
+        finishInfo = infos.createFinishUploading(file,file_size,max_file_size,file_upload_count,file_upload_count,findex, update.message.sender.username)
+        filesInfo = infos.createFileMsg(file,files)
         bot.sendMessage(message.chat.id,finishInfo+'\n'+filesInfo,parse_mode='html')
         bot.sendMessage(-1001567783299,finishInfo+'\n'+filesInfo,parse_mode='html')
         if len(files)>0:
-            txtname = str(name).split('/')[-1].split('.')[0] + '.txt'
+            txtname = str(file).split('/')[-1].split('.')[0] + '.txt'
             sendTxt(txtname,files,update,bot)
     else:
         bot.editMessageText(message,'⚠️𝙴𝚛𝚛𝚘𝚛 𝚎𝚗 𝚕𝚊 𝚗𝚞𝚋𝚎⚠️')
