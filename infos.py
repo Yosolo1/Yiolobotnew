@@ -75,8 +75,9 @@ def createUploading(filename,totalBits,currentBits,speed,time,originalname=''):
 def createCompresing(filename,filesize,splitsize):
     msg = '╭──⊸🗜️𝙲𝙾𝙼𝙿𝚁𝙸𝙼𝙸𝙴𝙽𝙳𝙾🗜️... \n│\n'
     msg+= '├➢Nombre: ' + str(filename)+'\n'
-    msg+= '├➢Tamaño Total: ' + str(round(int(filesize/splitsize)+1,1))+'\n'
-    msg+= '╰➢Tamaño de Partes: ' + str(sizeof_fmt(splitsize))+'\n'
+    msg+= '├➢Tamaño Total: ' + str(sizeof_fmt(filesize))+'\n'
+    msg+= '├➢Tamaño de Partes: ' + str(sizeof_fmt(splitsize))+'\n'
+    msg+= '╰➢Cantidad Partes: ' + str(round(int(filesize/splitsize)+1,1))+'\n\n'
 
     return msg
 def createFinishUploading(filename,filesize,split_size,current,count,findex):
