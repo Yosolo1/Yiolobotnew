@@ -50,6 +50,97 @@ def uploadFile(filename,currentBits,totalBits,speed,time,args):
     except Exception as ex: print(str(ex))
     pass
 
+def processUploadFiles(filename,filesize,files,update,bot,message,thread=None,jdb=None):
+    try:
+        bot.editMessageText(message,'📡Conectando con el servidor')
+        evidence = None
+        fileid = None
+        user_info = jdb.get_user(update.message.sender.username)
+        cloudtype = user_info['cloudtype']
+        proxy = ProxyCloud.parse(user_info['proxy'])
+        if cloudtype == 'moodle':
+            client = MoodleClient(user_info['moodle_user'],
+                                  user_info['moodle_password'],
+                                  user_info['moodle_host'],
+                                  user_info['moodle_repo_id'],
+                                  proxy=proxy)
+            loged = client.login()
+            itererr = 0
+            if loged:
+                if user_info['uploadtype'] == 'evidence':
+                    evidences = client.getEvidences()
+                    evidname = str(filename).split('.')[0]
+                    for evid in evidences:
+                        if evid['name'] == evidname:
+                            evidence = evid
+                            break
+                    if evidence is None:
+                        evidence = client.createEvidence(evidname)
+
+                originalfile = ''
+                if len(files)>1:
+                    originalfile = filename
+                draftlist = []
+                for f in files:
+                    f_size = get_file_size(f)
+                    resp = None
+                    iter = 0
+                    tokenize = False
+                    if user_info['tokenize']!=0:
+                       tokenize = True
+                    while resp is None:
+                          if user_info['uploadtype'] == 'evidence':
+                             fileid,resp = client.upload_file(f,evidence,fileid,progressfunc=uploadFile,args=(bot,message,originalfile,thread),tokenize=tokenize)
+                             draftlist.append(resp)
+                          if user_info['uploadtype'] == 'draft':
+                             fileid,resp = client.upload_file_draft(f,progressfunc=uploadFile,args=(bot,message,originalfile,thread),tokenize=tokenize)
+                             draftlist.append(resp)
+                          if user_info['uploadtype'] == 'blog':
+                             fileid,resp = client.upload_file_blog(f,progressfunc=uploadFile,args=(bot,message,originalfile,thread),tokenize=tokenize)
+                             draftlist.append(resp)
+                          if user_info['uploadtype'] == 'calendar':
+                             fileid,resp = client.upload_file_calendar(f,progressfunc=uploadFile,args=(bot,message,originalfile,thread),tokenize=tokenize)
+                             draftlist.append(resp)
+                          if user_info['uploadtype'] == 'calendarevea':
+                             fileid,resp = client.upload_file_calendarevea(f,progressfunc=uploadFile,args=(bot,message,originalfile,thread),tokenize=tokenize)
+                             draftlist.append(resp)
+                          iter += 1
+                          if iter>=10:
+                              break
+                    os.unlink(f)
+                if user_info['uploadtype'] == 'evidence':
+                    try:
+                        client.saveEvidence(evidence)
+                    except:pass
+                return draftlist
+            else:
+                bot.editMessageText(message,'⚠ Hubo un error ⚠')
+        elif cloudtype == 'cloud':
+            tokenize = False
+            if user_info['tokenize']!=0:
+               tokenize = True
+            bot.editMessageText(message,'Subiendo ☁ Espere Mientras... ')
+            host = user_info['moodle_host']
+            user = user_info['moodle_user']
+            passw = user_info['moodle_password']
+            remotepath = user_info['dir']
+            client = NexCloudClient.NexCloudClient(user,passw,host,proxy=proxy)
+            loged = client.login()
+            if loged:
+               originalfile = ''
+               if len(files)>1:
+                    originalfile = filename
+               filesdata = []
+               for f in files:
+                   data = client.upload_file(f,path=remotepath,progressfunc=uploadFile,args=(bot,message,originalfile,thread),tokenize=tokenize)
+                   filesdata.append(data)
+                   os.unlink(f)
+               return filesdata
+        return None
+    except Exception as ex:
+        bot.editMessageText(message,'Error\n' + str(ex))
+        return None
+
 def processFile(update,bot,message,file,thread=None,jdb=None):
     file_size = get_file_size(file)
     getUser = jdb.get_user(update.message.sender.username)
