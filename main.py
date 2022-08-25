@@ -207,7 +207,7 @@ def ddl(update,bot,message,url,file_name='',thread=None,jdb=None):
     file = downloader.download_url(url,progressfunc=downloadFile,args=(bot,message,thread))
     if not downloader.stoping:
         if file:
-            processFile(update,bot,message,file,obten_name,jdb=jdb)
+            processFile(update,bot,message,file,jdb=jdb)
         # else:
         #     megadl(update,bot,message,url,file_name,thread,jdb=jdb)
 
