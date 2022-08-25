@@ -1053,7 +1053,7 @@ def onmessage(update,bot:ObigramClient):
             #    return
             bot.editMessageText(message,'⚠️𝙴𝚛𝚛𝚘𝚛, 𝚗𝚘 𝚜𝚎 𝚙𝚞𝚍𝚘 𝚊𝚗𝚊𝚕𝚒𝚣𝚊𝚛 𝚌𝚘𝚛𝚛𝚎𝚌𝚝𝚊𝚖𝚎𝚗𝚝𝚎⚠️')
     except Exception as ex:
-           print(str(ex))
+           print(ex))
         
 
 def main():
