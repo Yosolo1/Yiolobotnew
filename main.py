@@ -50,19 +50,8 @@ def uploadFile(filename,currentBits,totalBits,speed,time,args):
     except Exception as ex: print(str(ex))
     pass
 
-def processFile(update,bot,message,file,obten_name,thread=None,jdb=None):
+def processFile(update,bot,message,file,thread=None,jdb=None):
     file_size = get_file_size(file)
-    ext = file.split('.')[-1]
-    if '7z.' in file:
-        ext1 = file.split('.')[-2]
-        ext2 = file.split('.')[-1]
-        name = obten_name + '.'+ext1+'.'+ext2
-        
-    else:
-        name = obten_name + '.'+ext
-        
-    os.rename(file,name)
-    print(name)
     getUser = jdb.get_user(update.message.sender.username)
     max_file_size = 1024 * 1024 * getUser['zips']
     file_upload_count = 0
@@ -104,7 +93,7 @@ def processFile(update,bot,message,file,obten_name,thread=None,jdb=None):
                            findex+=1
                     client.logout()
                 except:pass
-            if getUser['uploadtype'] == 'draft' or getUser['uploadtype'] == 'blog' or getUser['uploadtype']=='calendario' or getUser['uploadtype']=='calendarioevea':
+            if getUser['uploadtype'] == 'draft' or getUser['uploadtype'] == 'blog' or getUser['uploadtype']=='calendar' or getUser['uploadtype']=='calendarevea':
                for draft in client:
                    files.append({'name':draft['file'],'directurl':draft['url']})
         else:
