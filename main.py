@@ -52,7 +52,7 @@ def uploadFile(filename,currentBits,totalBits,speed,time,args):
 
 def processUploadFiles(filename,filesize,files,update,bot,message,thread=None,jdb=None):
     try:
-        bot.editMessageText(message,'📡Conectando con el servidor')
+        bot.editMessageText(message,'📦𝙿𝚛𝚎𝚙𝚊𝚛𝚊𝚗𝚍𝚘 𝚙𝚊𝚛𝚊 𝚜𝚞𝚋𝚒𝚛☁...')
         evidence = None
         fileid = None
         user_info = jdb.get_user(update.message.sender.username)
@@ -114,12 +114,12 @@ def processUploadFiles(filename,filesize,files,update,bot,message,thread=None,jd
                     except:pass
                 return draftlist
             else:
-                bot.editMessageText(message,'⚠ Hubo un error ⚠')
+                bot.editMessageText(message,'⚠️𝙴𝚛𝚛𝚘𝚛 𝚎𝚗 𝚕𝚊 𝚗𝚞𝚋𝚎⚠️')
         elif cloudtype == 'cloud':
             tokenize = False
             if user_info['tokenize']!=0:
                tokenize = True
-            bot.editMessageText(message,'Subiendo ☁ Espere Mientras... ')
+            bot.editMessageText(message,'🚀Subiendo ☁ Espere por favor...😄')
             host = user_info['moodle_host']
             user = user_info['moodle_user']
             passw = user_info['moodle_password']
@@ -200,7 +200,7 @@ def processFile(update,bot,message,file,thread=None,jdb=None):
             txtname = str(name).split('/')[-1].split('.')[0] + '.txt'
             sendTxt(txtname,files,update,bot)
     else:
-        bot.editMessageText(message,'⚠ Hubo un error ⚠')
+        bot.editMessageText(message,'⚠️𝙴𝚛𝚛𝚘𝚛 𝚎𝚗 𝚕𝚊 𝚗𝚞𝚋𝚎⚠️')
 
 def ddl(update,bot,message,url,file_name='',thread=None,jdb=None):
     downloader = Downloader()
