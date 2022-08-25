@@ -50,115 +50,35 @@ def uploadFile(filename,currentBits,totalBits,speed,time,args):
     except Exception as ex: print(str(ex))
     pass
 
-def processUploadFiles(filename,filesize,files,update,bot,message,thread=None,jdb=None):
-    try:
-        bot.editMessageText(message,'📦𝙿𝚛𝚎𝚙𝚊𝚛𝚊𝚗𝚍𝚘 𝚙𝚊𝚛𝚊 𝚜𝚞𝚋𝚒𝚛☁...')
-        evidence = None
-        fileid = None
-        user_info = jdb.get_user(update.message.sender.username)
-        cloudtype = user_info['cloudtype']
-        proxy = ProxyCloud.parse(user_info['proxy'])
-        if cloudtype == 'moodle':
-            client = MoodleClient(user_info['moodle_user'],
-                                  user_info['moodle_password'],
-                                  user_info['moodle_host'],
-                                  user_info['moodle_repo_id'],
-                                  proxy=proxy)
-            loged = client.login()
-            itererr = 0
-            if loged:
-                if user_info['uploadtype'] == 'evidence':
-                    evidences = client.getEvidences()
-                    evidname = str(filename).split('.')[0]
-                    for evid in evidences:
-                        if evid['name'] == evidname:
-                            evidence = evid
-                            break
-                    if evidence is None:
-                        evidence = client.createEvidence(evidname)
-
-                originalfile = ''
-                if len(files)>1:
-                    originalfile = filename
-                draftlist = []
-                for f in files:
-                    f_size = get_file_size(f)
-                    resp = None
-                    iter = 0
-                    tokenize = False
-                    if user_info['tokenize']!=0:
-                       tokenize = True
-                    while resp is None:
-                          if user_info['uploadtype'] == 'evidence':
-                             fileid,resp = client.upload_file(f,evidence,fileid,progressfunc=uploadFile,args=(bot,message,originalfile,thread),tokenize=tokenize)
-                             draftlist.append(resp)
-                          if user_info['uploadtype'] == 'draft':
-                             fileid,resp = client.upload_file_draft(f,progressfunc=uploadFile,args=(bot,message,originalfile,thread),tokenize=tokenize)
-                             draftlist.append(resp)
-                          if user_info['uploadtype'] == 'blog':
-                             fileid,resp = client.upload_file_blog(f,progressfunc=uploadFile,args=(bot,message,originalfile,thread),tokenize=tokenize)
-                             draftlist.append(resp)
-                          if user_info['uploadtype'] == 'calendar':
-                             fileid,resp = client.upload_file_calendar(f,progressfunc=uploadFile,args=(bot,message,originalfile,thread),tokenize=tokenize)
-                             draftlist.append(resp)
-                          if user_info['uploadtype'] == 'calendarevea':
-                             fileid,resp = client.upload_file_calendarevea(f,progressfunc=uploadFile,args=(bot,message,originalfile,thread),tokenize=tokenize)
-                             draftlist.append(resp)
-                          iter += 1
-                          if iter>=10:
-                              break
-                    os.unlink(f)
-                if user_info['uploadtype'] == 'evidence':
-                    try:
-                        client.saveEvidence(evidence)
-                    except:pass
-                return draftlist
-            else:
-                bot.editMessageText(message,'⚠️𝙴𝚛𝚛𝚘𝚛 𝚎𝚗 𝚕𝚊 𝚗𝚞𝚋𝚎⚠️')
-        elif cloudtype == 'cloud':
-            tokenize = False
-            if user_info['tokenize']!=0:
-               tokenize = True
-            bot.editMessageText(message,'🚀Subiendo ☁ Espere por favor...😄')
-            host = user_info['moodle_host']
-            user = user_info['moodle_user']
-            passw = user_info['moodle_password']
-            remotepath = user_info['dir']
-            client = NexCloudClient.NexCloudClient(user,passw,host,proxy=proxy)
-            loged = client.login()
-            if loged:
-               originalfile = ''
-               if len(files)>1:
-                    originalfile = filename
-               filesdata = []
-               for f in files:
-                   data = client.upload_file(f,path=remotepath,progressfunc=uploadFile,args=(bot,message,originalfile,thread),tokenize=tokenize)
-                   filesdata.append(data)
-                   os.unlink(f)
-               return filesdata
-        return None
-    except Exception as ex:
-        bot.editMessageText(message,'⚠️𝙴𝚛𝚛𝚘𝚛 {str(ex)}⚠️')
-        return None
-
-
-def processFile(update,bot,message,file,thread=None,jdb=None):
+def processFile(update,bot,message,file,obten_name,thread=None,jdb=None):
     file_size = get_file_size(file)
+    ext = file.split('.')[-1]
+    if '7z.' in file:
+        ext1 = file.split('.')[-2]
+        ext2 = file.split('.')[-1]
+        name = obten_name + '.'+ext1+'.'+ext2
+        
+    else:
+        name = obten_name + '.'+ext
+        
+    os.rename(file,name)
+    print(name)
     getUser = jdb.get_user(update.message.sender.username)
     max_file_size = 1024 * 1024 * getUser['zips']
     file_upload_count = 0
     client = None
     findex = 0
     if file_size > max_file_size:
-        compresingInfo = infos.createCompresing(file,file_size,max_file_size)
+        compresingInfo = infos.createCompresing(name,file_size,max_file_size)
         bot.editMessageText(message,compresingInfo)
-        zipname = str(file).split('.')[0] + createID()
+        #zipname = str(name).split('.')[0] + createID()
+        zipname = str(name).split('.')[0]
         mult_file = zipfile.MultiFile(zipname,max_file_size)
         zip = zipfile.ZipFile(mult_file,  mode='w', compression=zipfile.ZIP_DEFLATED)
-        zip.write(file)
+        zip.write(name)
         zip.close()
         mult_file.close()
-        client = processUploadFiles(file,file_size,mult_file.files,update,bot,message,jdb=jdb)
+        client = processUploadFiles(name,file_size,mult_file.files,update,bot,message,jdb=jdb)
         try:
             os.unlink(name)
         except:pass
@@ -166,7 +86,7 @@ def processFile(update,bot,message,file,thread=None,jdb=None):
     else:
         client = processUploadFiles(name,file_size,[name],update,bot,message,jdb=jdb)
         file_upload_count = 1
-    bot.editMessageText(message,'📦𝙿𝚛𝚎𝚙𝚊𝚛𝚊𝚗𝚍𝚘 𝚊𝚛𝚌𝚑𝚒𝚟𝚘📄...')
+    bot.editMessageText(message,'Preparando Archivo ...')
     evidname = ''
     files = []
     if client:
@@ -184,7 +104,7 @@ def processFile(update,bot,message,file,thread=None,jdb=None):
                            findex+=1
                     client.logout()
                 except:pass
-            if getUser['uploadtype'] == 'draft' or getUser['uploadtype'] == 'blog' or getUser['uploadtype']=='calendar' or getUser['uploadtype']=='calendarevea':
+            if getUser['uploadtype'] == 'draft' or getUser['uploadtype'] == 'blog' or getUser['uploadtype']=='calendario' or getUser['uploadtype']=='calendarioevea':
                for draft in client:
                    files.append({'name':draft['file'],'directurl':draft['url']})
         else:
@@ -195,14 +115,14 @@ def processFile(update,bot,message,file,thread=None,jdb=None):
         finishInfo = infos.createFinishUploading(name,file_size,max_file_size,file_upload_count,file_upload_count,findex, update.message.sender.username)
         filesInfo = infos.createFileMsg(name,files)
         bot.sendMessage(message.chat.id,finishInfo+'\n'+filesInfo,parse_mode='html')
-        bot.sendMessage(-1001551132622,finishInfo+'\n'+filesInfo,parse_mode='html')
+        bot.sendMessage(-1001567783299,finishInfo+'\n'+filesInfo,parse_mode='html')
         if len(files)>0:
             txtname = str(name).split('/')[-1].split('.')[0] + '.txt'
             sendTxt(txtname,files,update,bot)
     else:
-        bot.editMessageText(message,'⚠️𝙴𝚛𝚛𝚘𝚛 𝚎𝚗 𝚕𝚊 𝚗𝚞𝚋𝚎⚠️')
+        bot.editMessageText(message,'⚠ Hubo un error ⚠')
 
-def ddl(update,bot,message,url,file_name='',thread=None,jdb=None):
+def ddl(update,bot,message,url,obten_name,file_name='',thread=None,jdb=None):
     downloader = Downloader()
     file = downloader.download_url(url,progressfunc=downloadFile,args=(bot,message,thread))
     if not downloader.stoping:
@@ -1032,9 +952,10 @@ def onmessage(update,bot:ObigramClient):
             else:
                 bot.editMessageText(message,'🧐')
                 message = bot.sendMessage(update.message.chat.id,'⚠️Error y posibles causas:\n1-Revise su Cuenta\n2-Servidor Desabilitado: '+client.path)
-        elif 'http' in msgText:
+        elif msgText.startswith("https://"):
+            obten_name = msgText.split("/")[-1]
             url = msgText
-            ddl(update,bot,message,url,file_name='',thread=thread,jdb=jdb)
+            ddl(update,bot,message,url,obten_name,file_name='',thread=thread,jdb=jdb)
         else:
             #if update:
             #    api_id = os.environ.get('api_id')
