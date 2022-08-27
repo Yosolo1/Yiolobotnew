@@ -723,6 +723,7 @@ def onmessage(update,bot:ObigramClient):
         thread.store('msg',message)
 
         if '/start' in msgText:
+            start_msg = '🦾\n'
             start_msg = '╭───ⓘ🌟𝔹𝕆𝕋 𝕀ℕ𝕀ℂ𝕀𝔸𝔻𝕆🌟─〄\n│\n'
             start_msg+= '├🤖Hola @' + str(username)+'\n│\n'
             start_msg+= '├࿇ ══━━━━✥◈✥━━━━══ ࿇\n│\n'
@@ -735,7 +736,7 @@ def onmessage(update,bot:ObigramClient):
             start_msg+= '├😁𝚀𝚞𝚎 𝚍𝚒𝚜𝚏𝚛𝚞𝚝𝚎 𝚐𝚛𝚊𝚗𝚍𝚎𝚖𝚎𝚗𝚝𝚎 𝚜𝚞 𝚎𝚜𝚝𝚊𝚍í𝚊😁.\n│\n'
             start_msg+= '╰──ⓘSuperDownload v1.5🌟─〄\n'
             bot.editMessageText(message,start_msg)
-            message = bot.sendMessage(update.message.chat.id,'🦾')
+            #message = bot.sendMessage(update.message.chat.id,'🦾')
         elif '/files' == msgText and user_info['cloudtype']=='moodle':
              proxy = ProxyCloud.parse(user_info['proxy'])
              client = MoodleClient(user_info['moodle_user'],
@@ -831,13 +832,13 @@ def onmessage(update,bot:ObigramClient):
                 bot.editMessageText(message2,'⚠️La moodle '+client.path+' no tiene Token o revise la cuenta⚠️')
         elif '/config' in msgText:
             msg_nub = "╭───ⓘ💡LISTA DE NUBES PRECONFIGURADAS:\n"
-            msg_nub += "├➢☁️ UCLV ☛ /uclv\n"
-            msg_nub += "├➢☁️ Aulacened ☛ /aulacened\n"
-            msg_nub += "├➢☁️ Cursos ☛ /cursos\n"
-            msg_nub += "├➢☁️ Evea ☛ /evea\n"
-            msg_nub += "├➢☁️ Eduvirtual ☛ /eduvirtual\n"
-            msg_nub += "├➢☁️ Eva ☛ /eva\n"
-            msg_nub += "╰➢☁️ Art.sld ☛ /artem\n"   
+            msg_nub += "├⊸☁️ UCLV ☛ /uclv\n"
+            msg_nub += "├⊸☁️ Aulacened ☛ /aulacened\n"
+            msg_nub += "├⊸☁️ Cursos ☛ /cursos\n"
+            msg_nub += "├⊸☁️ Evea ☛ /evea\n"
+            msg_nub += "├⊸☁️ Eduvirtual ☛ /eduvirtual\n"
+            msg_nub += "├⊸☁️ Eva ☛ /eva\n"
+            msg_nub += "╰⊸☁️ Art.sld ☛ /artem\n"   
             bot.editMessageText(message,msg_nub)
 
         elif '/delconf' in msgText:
@@ -981,23 +982,6 @@ def onmessage(update,bot:ObigramClient):
             bot.editMessageText(message,"✅Configuración de Aula Guantanamo cargada...")
         ###################################################     
   
-        elif '/del_' in msgText and user_info['cloudtype']=='moodle':
-            findex = int(str(msgText).split('_')[1])
-            proxy = ProxyCloud.parse(user_info['proxy'])
-            client = MoodleClient(user_info['moodle_user'],
-                                   user_info['moodle_password'],
-                                   user_info['moodle_host'],
-                                   user_info['moodle_repo_id'],
-                                   proxy=proxy)
-            loged = client.login()
-            if loged:
-                evfile = client.getEvidences()[findex]
-                client.deleteEvidence(evfile)
-                client.logout()
-                bot.editMessageText(message,'𝙰𝚛𝚌𝚑𝚒𝚟𝚘 𝚎𝚕𝚒𝚖𝚒𝚗𝚊𝚍𝚘🗑️')
-            else:
-                bot.editMessageText(message,'🧐')
-                message = bot.sendMessage(update.message.chat.id,'⚠️Error y posibles causas:\n1-Revise su Cuenta\n2-Servidor Desabilitado: '+client.path)
         elif '/del_' in msgText and user_info['cloudtype']=='moodle':
             findex = int(str(msgText).split('_')[1])
             proxy = ProxyCloud.parse(user_info['proxy'])
