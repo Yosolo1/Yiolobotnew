@@ -63,7 +63,7 @@ def createUploading(filename,totalBits,currentBits,speed,time,originalname=''):
     msg += '╰⊸Nombre: '+filename+'\n'
     if originalname!='':
         msg = str(msg).replace(filename,originalname)
-        msg+= '⟜⊸Parte: ' + str(filename)+'\n'
+        msg+= '⊶Parte: ' + str(filename)+'\n'
     msg += text_progres(currentBits,totalBits)+'\n'
     msg += '╭⊸Porcentaje: '+str(porcent(currentBits,totalBits))+'%\n│\n'
     msg += '├⊸Tamaño total: '+sizeof_fmt(totalBits)+'\n│\n'
@@ -82,7 +82,7 @@ def createCompresing(filename,filesize,splitsize):
     return msg
 def createFinishUploading(filename,filesize,split_size,current,count,username,findex):
     msg = '╭──⊸✅𝙿𝚁𝙾𝙲𝙴𝚂𝙾 𝙵𝙸𝙽𝙰𝙻𝙸𝚉𝙰𝙳𝙾✅─〄\n'
-    msg+= '├─⊸➢ ༺@"+username+"༻\n│\n'
+    msg+= '├⊸➢ ༺@"+username+"༻\n│\n'
     msg+= '├⊸Nombre: ' + str(filename)+'\n'
     msg+= '├⊸Tamaño Total: ' + str(sizeof_fmt(filesize))+'\n'
     msg+= '├⊸Tamaño de Partes: ' + str(sizeof_fmt(split_size))+'\n'
@@ -96,8 +96,8 @@ def createFileMsg(filename,files):
         msg= '<b>🖇𝙴𝙽𝙻𝙰𝙲𝙴𝚂🖇</b>\n'
         for f in files:
             url = urllib.parse.unquote(f['directurl'],encoding='utf-8', errors='replace')
-            msg+= '<a href="'+f['url']+'">🔗' + f['name'] + '🔗</a>'
-            #msg+= "<a href='"+url+"'>➾"+f['name']+'</a>\n'
+            #msg+= '<a href="'+f['url']+'">🔗' + f['name'] + '🔗</a>'
+            msg+= "<a href='"+url+"'>⊶➣"+f['name']+'</a>\n'
         msg += "\nⓘ─⊸ SuperDownload v1.5🌟 Dev: @Luis_Daniel_Diaz ⟜─〄\n\n"
         return msg
     return ''
