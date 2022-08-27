@@ -80,9 +80,9 @@ def createCompresing(filename,filesize,splitsize):
     msg+= '╰➢Cantidad Partes: ' + str(round(int(filesize/splitsize)+1,1))+'\n\n'
 
     return msg
-def createFinishUploading(filename,filesize,split_size,current,count,findex):
+def createFinishUploading(username,filename,filesize,split_size,current,count,findex):
     msg = '╭──⊸✅𝙿𝚁𝙾𝙲𝙴𝚂𝙾 𝙵𝙸𝙽𝙰𝙻𝙸𝚉𝙰𝙳𝙾✅─〄\n'
-    msg+= '├➢༺@"+username+"༻\n│\n'
+    msg+= '├➢༺@' + str(username)+'༻\n│\n'
     msg+= '├➢Nombre: ' + str(filename)+'\n'
     msg+= '├➢Tamaño Total: ' + str(sizeof_fmt(filesize))+'\n'
     msg+= '├➢Tamaño de Partes: ' + str(sizeof_fmt(split_size))+'\n'
