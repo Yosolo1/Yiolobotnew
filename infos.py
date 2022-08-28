@@ -80,7 +80,7 @@ def createCompresing(filename,filesize,splitsize):
     msg+= '╰⊸Cantidad Partes: ' + str(round(int(filesize/splitsize)+1,1))+'\n\n'
 
     return msg
-def createFinishUploading(filename,filesize,split_size,current,count,username,findex):
+def createFinishUploading(filename,filesize,split_size,current,count,userdata,username,findex):
     msg = '╭──⊸✅𝙿𝚁𝙾𝙲𝙴𝚂𝙾 𝙵𝙸𝙽𝙰𝙻𝙸𝚉𝙰𝙳𝙾✅─〄\n'
     msg+= '├⊸➢ ༺@' + str(username)+'༻\n│\n'
     msg+= '├⊸Nombre: ' + str(filename)+'\n'
@@ -131,6 +131,7 @@ def createStat(username,userdata,isadmin):
     if userdata['cloudtype'] == 'cloud':
         msg+= '├⊸Directorio: /' + str(userdata['dir'])+'\n'
     msg+= '├⊸Tamaño de zips: ' + sizeof_fmt(userdata['zips']*1024*1024) + '\n'
+    msg+= '├⊸Canal XDLinks: ' + str(userdata['channel'])+'\n'
     msg+= '│' + '\n'
     msgAdmin = '✘'
     if isadmin:
@@ -140,6 +141,10 @@ def createStat(username,userdata,isadmin):
     if userdata['proxy'] !='':
        proxy = '✔'
     msg+= '├⊸Proxy: ' + proxy + '\n'
+    xdlink = '✘'
+    if userdata['xdlink'] !='':
+       xdlink = '✔'
+    msg+= '├⊸XDLinks: ' + xdlink + '\n'
     msg+= '│' + '\n'
     msg+= '╰──ⓘSuperDownload 1.5🌟─〄\n\n'
     return msg
