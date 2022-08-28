@@ -131,7 +131,7 @@ def createStat(username,userdata,isadmin):
     if userdata['cloudtype'] == 'cloud':
         msg+= '├⊸Directorio: /' + str(userdata['dir'])+'\n'
     msg+= '├⊸Tamaño de zips: ' + sizeof_fmt(userdata['zips']*1024*1024) + '\n'
-    msg+= '├⊸Canal XDLinks: ' + str(userdata['channel'])+'\n'
+    msg+= '├⊸Canal XDLinks: ' + str(userdata['channelid'])+'\n'
     msg+= '│' + '\n'
     msgAdmin = '✘'
     if isadmin:
