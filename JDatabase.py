@@ -39,7 +39,7 @@ class JsonDatabase(object):
                      'proxy':'',
                      'xdlink':0,
                      'urlshort':0,
-                     'channelid': '--',
+                     #'channelid': '--',
                      'tokenize':0}
 
     def create_admin(self,name):
@@ -55,7 +55,7 @@ class JsonDatabase(object):
                      'proxy':'',
                      'xdlink':0,
                      'urlshort':0,
-                     'channelid': '--',
+                     #'channelid': '--',
                      'tokenize':0}
 
     def remove(self,name):
