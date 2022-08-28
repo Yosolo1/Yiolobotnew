@@ -1016,7 +1016,9 @@ def onmessage(update,bot:ObigramClient):
             else:
                 bot.editMessageText(message,'🧐')
                 message = bot.sendMessage(update.message.chat.id,'⊷⚠️Error y posibles causas:\n1-Revise su Cuenta\n2-Servidor Desabilitado: '+client.path)
-        elif 'http' in msgText:
+
+        elif msgText.startswith("https://"):
+            file_name = msgText.split("/")[-1].replace("%20","_")
             url = msgText
             ddl(update,bot,message,url,file_name='',thread=thread,jdb=jdb)
         else:
