@@ -141,14 +141,14 @@ def createStat(username,userdata,isadmin):
     if userdata['proxy'] !='':
        proxy = '✔'
     msg+= '├⊸Proxy: ' + proxy + '\n'
-    xdlink = '✘'
-    if userdata['xdlink'] !='1':
-       xdlink = '✔'
-    msg+= '├⊸XDLinks: ' + xdlink + '\n'
-    shortener = '✘'
-    if userdata['urlshort'] !='1':
-       shortener = '✔'
-    msg+= '├⊸ShortUrl : ' + shortener + '\n'
+    #xdlink = '✘'
+    #if userdata['xdlink'] !='1':
+       #xdlink = '✔'
+    #msg+= '├⊸XDLinks: ' + xdlink + '\n'
+    #shortener = '✘'
+    #if userdata['urlshort'] !='1':
+       #shortener = '✔'
+    #msg+= '├⊸ShortUrl : ' + shortener + '\n'
     msg+= '│' + '\n'
     msg+= '╰──ⓘSuperDownload 1.5🌟─〄\n\n'
     return msg
