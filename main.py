@@ -150,7 +150,7 @@ def processFile(update,bot,message,file,thread=None,jdb=None):
     client = None
     findex = 0
     if file_size > max_file_size:
-        compresingInfo = infos.createCompresing(name,file_size,max_file_size)
+        compresingInfo = infos.createCompresing(file,file_size,max_file_size)
         bot.editMessageText(message,compresingInfo)
         #zipname = str(name).split('.')[0] + createID()
         zipname = str(file).split('.')[0]
