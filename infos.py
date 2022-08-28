@@ -82,7 +82,7 @@ def createCompresing(filename,filesize,splitsize):
     return msg
 def createFinishUploading(filename,filesize,split_size,current,count,username,findex):
     msg = '╭──⊸✅𝙿𝚁𝙾𝙲𝙴𝚂𝙾 𝙵𝙸𝙽𝙰𝙻𝙸𝚉𝙰𝙳𝙾✅─〄\n'
-    msg+= '├⊸➢ ༺@' + str(username)+'༻\n│\n'
+    msg+= '├⊸➢ ༺@"+username+"༻\n│\n'
     msg+= '├⊸Nombre: ' + str(filename)+'\n'
     msg+= '├⊸Tamaño Total: ' + str(sizeof_fmt(filesize))+'\n'
     msg+= '├⊸Tamaño de Partes: ' + str(sizeof_fmt(split_size))+'\n'
@@ -122,33 +122,39 @@ def createStat(username,userdata,isadmin):
     msg = '╭───ⓘ⚙️ℂ𝕆ℕ𝔽𝕀𝔾𝕌ℝ𝔸ℂ𝕀𝕆ℕ⚙️─〄\n│\n'
     msg+= '├⊸Nombre: ༺@' + str(username)+'༻\n'
     msg+= '├⊸Usuario: ' + str(userdata['moodle_user'])+'\n'
-    msg+= '├⊸Contraseña: ' + str(userdata['moodle_password'])+'\n'
+    msg+= '├⊸Contraseña: ' + str(userdata['moodle_password']) +'\n'
     msg+= '├⊸URL nube: ' + str(userdata['moodle_host'])+'\n'
     if userdata['cloudtype'] == 'moodle':
-        msg+= '├⊸Repo ID: ' + str(userdata['moodle_repo_id'])+'\n'
-    msg+= '├⊸Tipo de almacén: ' + str(userdata['cloudtype'])+'\n'
-    msg+= '├⊸Tipo de subida: ' + str(userdata['uploadtype'])+'\n'
+        msg+= '├⊸Repo ID:  ' + str(userdata['moodle_repo_id'])+'\n'
+        msg+= '├⊸Tipo de subida:: ' + str(userdata['uploadtype'])+'\n'
+    msg += '├⊸Tipo de almacén: ' + str(userdata['cloudtype']) + '\n'
     if userdata['cloudtype'] == 'cloud':
         msg+= '├⊸Directorio: /' + str(userdata['dir'])+'\n'
     msg+= '├⊸Tamaño de zips: ' + sizeof_fmt(userdata['zips']*1024*1024) + '\n'
-    #msg+= '├⊸Canal XDLinks: ' + str(userdata['channelid'])+'\n'
+    msg+= '├⊸Canal ID XDLinks: ' + str(userdata['channelid'])+'\n'
     msg+= '│' + '\n'
     msgAdmin = '✘'
+
     if isadmin:
         msgAdmin = '✔'
     msg+= '├⊸Admin: ' + msgAdmin + '\n'
     proxy = '✘'
     if userdata['proxy'] !='':
        proxy = '✔'
+    rename = '✘'
+    if userdata['rename'] == 1:
+       rename = '✔'
+    msg+= '├⊸Rename: ' + rename + '\n'
     msg+= '├⊸Proxy: ' + proxy + '\n'
-    #xdlink = '✘'
-    #if userdata['xdlink'] !='1':
-       #xdlink = '✔'
-    #msg+= '├⊸XDLinks: ' + xdlink + '\n'
-    #shortener = '✘'
-    #if userdata['urlshort'] !='1':
-       #shortener = '✔'
-    #msg+= '├⊸ShortUrl : ' + shortener + '\n'
+    shorturl = (userdata['urlshort'] == 1)
+    shortener = '✘'
+    if shorturl:
+       shortener = '✔'
+    msg+= '├⊸ShortUrl ' + shortener + '\n'
+    xdlink = '✘'
+    if userdata['xdlink'] == 1:
+       xdlink = '✔'
+    msg+= '├⊸XDLinks: ' + xdlink + '\n'
     msg+= '│' + '\n'
     msg+= '╰──ⓘSuperDownload 1.5🌟─〄\n\n'
     return msg
