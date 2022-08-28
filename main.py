@@ -735,7 +735,7 @@ def onmessage(update,bot:ObigramClient):
             start_msg+= '├⊸🙂Si usted desea añadir la barra de comandos al menú de acceso rápido de su bot envíe /commands.\n│\n'
             start_msg+= '├⊸😁𝚀𝚞𝚎 𝚍𝚒𝚜𝚏𝚛𝚞𝚝𝚎 𝚐𝚛𝚊𝚗𝚍𝚎𝚖𝚎𝚗𝚝𝚎 𝚜𝚞 𝚎𝚜𝚝𝚊𝚍í𝚊😁.\n│\n'
             start_msg+= '╰───ⓘSuperDownload v1.5🌟─〄\n'
-            #bot.editMessageText(message,start_msg)
+            bot.sendMessageText(message,start_msg)
             #message = bot.sendMessage(update.message.chat.id,'🦾')
         elif '/files' == msgText and user_info['cloudtype']=='moodle':
              proxy = ProxyCloud.parse(user_info['proxy'])
