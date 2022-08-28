@@ -45,8 +45,8 @@ def createDownloading(filename,totalBits,currentBits,speed,time,tid=''):
     msg += '├⊸Velocidad: '+sizeof_fmt(speed)+'/s\n│\n'
     msg += '╰⊸Tiempo restante: '+str(datetime.timedelta(seconds=int(time)))+'s\n\n'
 
-    #if tid!='':
-        #msg+= '/cancel_' + tid
+    if tid!='':
+        msg+= '/cancel_' + tid
     return msg
 def createUploading(filename,totalBits,currentBits,speed,time,originalname=''):
     msg = '╭⊸📤𝚂𝚄𝙱𝙸𝙴𝙽𝙳𝙾 𝙰 𝙻𝙰 𝙽𝚄𝙱𝙴☁️... \n│\n'
