@@ -742,7 +742,7 @@ def onmessage(update,bot:ObigramClient):
         thread.store('msg',message)
 
         if '/start' in msgText:
-            bot.editMessageText(message,'🦾')
+            #bot.editMessageText(message,'🦾')
             start_msg = '╭───ⓘ🌟𝔹𝕆𝕋 𝕀ℕ𝕀ℂ𝕀𝔸𝔻𝕆🌟─〄\n│\n'
             start_msg+= '├⊸🤖Hola @' + str(username)+' !!!!\n│\n'
             start_msg+= '├─⊰᯽⊱┈──╌❊ - ❊╌──┈⊰᯽⊱─⊸\n│\n'
@@ -754,8 +754,8 @@ def onmessage(update,bot:ObigramClient):
             start_msg+= '├⊸🙂Si usted desea añadir la barra de comandos al menú de acceso rápido de su bot envíe /commands.\n│\n'
             start_msg+= '├⊸😁𝚀𝚞𝚎 𝚍𝚒𝚜𝚏𝚛𝚞𝚝𝚎 𝚐𝚛𝚊𝚗𝚍𝚎𝚖𝚎𝚗𝚝𝚎 𝚜𝚞 𝚎𝚜𝚝𝚊𝚍í𝚊😁.\n│\n'
             start_msg+= '╰───ⓘSuperDownload v1.5🌟─〄\n'
-            message = bot.sendMessageText(message,start_msg)
-            #message = bot.sendMessage(update.message.chat.id,'🦾')
+            bot.editMessageText(message,start_msg)
+            message = bot.sendMessage(update.message.chat.id,'🦾')
         elif '/files' == msgText and user_info['cloudtype']=='moodle':
              proxy = ProxyCloud.parse(user_info['proxy'])
              client = MoodleClient(user_info['moodle_user'],
