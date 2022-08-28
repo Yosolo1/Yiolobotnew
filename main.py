@@ -204,6 +204,7 @@ def processFile(update,bot,message,file,thread=None,jdb=None):
         bot.editMessageText(message,'⚠️𝙴𝚛𝚛𝚘𝚛 𝚎𝚗 𝚕𝚊 𝚗𝚞𝚋𝚎⚠️')
 
 def ddl(update,bot,message,url,file_name='',thread=None,jdb=None):
+    file_name = file_name.replace(" ", "_")
     downloader = Downloader()
     file = downloader.download_url(url,progressfunc=downloadFile,args=(bot,message,thread))
     if not downloader.stoping:
@@ -1036,8 +1037,7 @@ def onmessage(update,bot:ObigramClient):
                 bot.editMessageText(message,'🧐')
                 message = bot.sendMessage(update.message.chat.id,'⊷⚠️Error y posibles causas:\n1-Revise su Cuenta\n2-Servidor Desabilitado: '+client.path)
 
-        elif msgText.startswith("https://"):
-            file_name = msgText.split("/")[-1].replace("%20","_")
+        elif 'http' in msgText:
             url = msgText
             ddl(update,bot,message,url,file_name='',thread=thread,jdb=jdb)
         else:
