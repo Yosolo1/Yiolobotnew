@@ -146,7 +146,7 @@ def createStat(username,userdata,isadmin):
        xdlink = '✔'
     msg+= '├⊸XDLinks: ' + xdlink + '\n'
     shortener = '✘'
-    if userdata['urlshort'] !='1')
+    if userdata['urlshort'] !='1':
        shortener = '✔'
     msg+= '├⊸ShortUrl : ' + shortener + '\n'
     msg+= '│' + '\n'
