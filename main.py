@@ -380,14 +380,14 @@ def onmessage(update,bot:ObigramClient):
                 urls = str(msgText).split(' ')[1]
                 channelid = getUser['channelid']
                 xdlinkdd = xdlink.parse(urls, username)
-                msg = f'**Aquí está su link encriptado en xdlink:** `{xdlinkdd}`'
-                msgP = f'**Aquí está su link encriptado en xdlink protegido:** `{xdlinkdd}`'
+                msg = f'🔗Aquí está su link encriptado en xdlink:🔗 `{xdlinkdd}`'
+                msgP = f'🔗Aquí está su link encriptado en xdlink protegido:🔗 `{xdlinkdd}`'
                 if channelid == 0:
                     bot.sendMessage(chat_id = chatid, parse_mode = 'Markdown', text = msg)
                 else: 
                     bot.sendMessage(chat_id = chatid, parse_mode = 'Markdown', text = msgP)
             except:
-                msg = f'》*El comando debe ir acompañado de un link moodle*'
+                msg = f'📌El comando debe ir acompañado de un link moodle...'
                 bot.sendMessage(chat_id = chatid, parse_mode = 'Markdown', text = msg)
             return
 
@@ -548,7 +548,7 @@ def onmessage(update,bot:ObigramClient):
                     jdb.save_data_user(username,getUser)
                     jdb.save()
                     statInfo = infos.createStat(username,getUser,jdb.is_admin(username))
-                    bot.sendMessage(update.message.chat.id,statInfo,reply_markup=reply_markup)
+                    bot.sendMessage(update.message.chat.id,statInfo)
             except:
                 bot.sendMessage(update.message.chat.id,'⚠️Error en el comando /acc usuario,contraseña⚠️')
             return
@@ -563,7 +563,7 @@ def onmessage(update,bot:ObigramClient):
                     jdb.save_data_user(username,getUser)
                     jdb.save()
                     statInfo = infos.createStat(username,getUser,jdb.is_admin(username))
-                    bot.sendMessage(update.message.chat.id,statInfo,reply_markup=reply_markup)
+                    bot.sendMessage(update.message.chat.id,statInfo)
             except:
                 bot.sendMessage(update.message.chat.id,'⚠️Error en el comando /host url de la nube⚠️')
             return
@@ -577,7 +577,7 @@ def onmessage(update,bot:ObigramClient):
                     jdb.save_data_user(username,getUser)
                     jdb.save()
                     statInfo = infos.createStat(username,getUser,jdb.is_admin(username))
-                    bot.sendMessage(update.message.chat.id,statInfo,reply_markup=reply_markup)
+                    bot.sendMessage(update.message.chat.id,statInfo)
             except:
                 bot.sendMessage(update.message.chat.id,'⚠️Error en el comando /repo ID de la moodle⚠️')
             return
@@ -615,7 +615,7 @@ def onmessage(update,bot:ObigramClient):
                     jdb.save_data_user(username,getUser)
                     jdb.save()
                     statInfo = infos.createStat(username,getUser,jdb.is_admin(username))
-                    bot.sendMessage(update.message.chat.id,statInfo,reply_markup=reply_markup)
+                    bot.sendMessage(update.message.chat.id,statInfo)
             except:
                 bot.sendMessage(update.message.chat.id,'⚠️Error en el comando /cloud (moodle o cloud⚠️')
             return
@@ -629,7 +629,7 @@ def onmessage(update,bot:ObigramClient):
                     jdb.save_data_user(username,getUser)
                     jdb.save()
                     statInfo = infos.createStat(username,getUser,jdb.is_admin(username))
-                    bot.sendMessage(update.message.chat.id,statInfo,reply_markup=reply_markup)
+                    bot.sendMessage(update.message.chat.id,statInfo)
             except:
                 bot.sendMessage(update.message.chat.id,'⚠️Error en el comando up tipo de subida (evidence,draft,blog,calendar)⚠️')
             return
