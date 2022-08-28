@@ -37,6 +37,8 @@ class JsonDatabase(object):
                      'zips': 100,
                      'uploadtype':'draft',
                      'proxy':'',
+                     'xdlink': 0,
+                     'channel': 0,
                      'tokenize':0}
 
     def create_admin(self,name):
@@ -50,6 +52,8 @@ class JsonDatabase(object):
                      'zips': 100,
                      'uploadtype':'draft',
                      'proxy':'',
+                     'xdlink': 0,
+                     'channel': 0,
                      'tokenize':0}
 
     def remove(self,name):
