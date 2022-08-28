@@ -421,7 +421,7 @@ def onmessage(update,bot:ObigramClient):
                     statInfo = infos.createStat(username,getUser,jdb.is_admin(username))
                     bot.sendMessage(update.message.chat.id,statInfo)
             except:
-                bot.sendMessage(update.message.chat.id,'╭───ⓘ☣️El comando debe ir acompañado de un id de canal...\n╰⊸\n💡Ejemplo: -100XXXXXXXXXX.'
+                bot.sendMessage(update.message.chat.id,'╭───ⓘ☣️El comando debe ir acompañado de un id de canal...\n╰⊸\n💡Ejemplo: -100XXXXXXXXXX.')
                 bot.sendMessage(chat_id = chatid, parse_mode = 'Markdown', text = msg)
             return
 
