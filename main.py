@@ -53,6 +53,7 @@ def uploadFile(filename,currentBits,totalBits,speed,time,args):
 
 def processUploadFiles(filename,filesize,files,update,bot,message,thread=None,jdb=None):
     try:
+        filename = filename.replace(" ", "_")
         bot.editMessageText(message,'📦𝙿𝚛𝚎𝚙𝚊𝚛𝚊𝚗𝚍𝚘 𝚙𝚊𝚛𝚊 𝚜𝚞𝚋𝚒𝚛☁...')
         evidence = None
         fileid = None
