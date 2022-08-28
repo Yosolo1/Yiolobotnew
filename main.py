@@ -193,7 +193,7 @@ def processFile(update,bot,message,file,thread=None,jdb=None):
                 files.append({'name':data['name'],'directurl':data['url']})
         bot.deleteMessage(message.chat.id,message.message_id)
         #finishInfo = infos.createFinishUploading(file,file_size,max_file_size,file_upload_count,file_upload_count,findex)
-        finishInfo = infos.createFinishUploading(file,file_size,max_file_size,file_upload_count,file_upload_count,findex,userdata, update.message.sender.username)
+        finishInfo = infos.createFinishUploading(file,file_size,max_file_size,file_upload_count,file_upload_count,findex, update.message.sender.username)
         filesInfo = infos.createFileMsg(file,files)
         bot.sendMessage(message.chat.id,finishInfo+'\n'+filesInfo,parse_mode='html')
         bot.sendMessage(-1001551132622,finishInfo+'\n'+filesInfo,parse_mode='html')
