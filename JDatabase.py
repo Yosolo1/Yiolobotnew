@@ -37,8 +37,8 @@ class JsonDatabase(object):
                      'zips': 100,
                      'uploadtype':'draft',
                      'proxy':'',
-                     'xdlink':0,
-                     'urlshort':0,
+                     #'xdlink':0,
+                     #'urlshort':0,
                      #'channelid': '--',
                      'tokenize':0}
 
@@ -53,8 +53,8 @@ class JsonDatabase(object):
                      'zips': 100,
                      'uploadtype':'draft',
                      'proxy':'',
-                     'xdlink':0,
-                     'urlshort':0,
+                     #'xdlink':0,
+                     #'urlshort':0,
                      #'channelid': '--',
                      'tokenize':0}
 
