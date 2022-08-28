@@ -5,6 +5,7 @@ from JDatabase import JsonDatabase
 import zipfile
 import os
 import infos
+import shortener
 import xdlink
 import mediafire
 import datetime
